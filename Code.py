@@ -13,14 +13,20 @@ st.title("🎵 Music ML Model & Stream Predictor")
 # Load data
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
-# Drop Genre and Album (not used in model)
-df = df.drop(['Genre', 'Album'], axis=1)
+# Drop unused columns
+df = df.drop(columns=[
+    'Genre',
+    'Album',
+    'Skip Rate (%)',
+    'Streams Last 30 Days (Millions)',
+    'Total Hours Streamed (Millions)'
+])
 
 # Show top 10 records
 st.subheader("🎧 Preview of the Dataset")
 st.dataframe(df.head(10))
 
-# Encode categorical columns and save encoders
+# Encode categorical columns
 label_cols = ["Country", "Artist", "Platform Type"]
 le = {}
 df_encoded = df.copy()
@@ -32,16 +38,17 @@ for col in label_cols:
 X = df_encoded.drop(columns=["Total Streams (Millions)"])
 y = df_encoded["Total Streams (Millions)"]
 
-# Train/test split and model training
+# Split and train model
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-# Evaluation
+# Metrics
 st.subheader("📈 Model Evaluation")
 st.write("MSE:", mean_squared_error(y_test, y_pred))
-st.write("R-Squared:", r2_score(y_test, y_pred))
+r2 = r2_score(y_test, y_pred)
+st.write("R-Squared:", r2)
 
 # Plot actual vs predicted
 fig, ax = plt.subplots(figsize=(6, 6))
@@ -76,11 +83,11 @@ input_data = pd.DataFrame({
     "Avg Stream Duration (Min)": [avg_stream_duration],
 })
 
-# Encode using saved encoders
+# Encode input
 for col in label_cols:
     input_data[col] = le[col].transform(input_data[col])
 
-# Prediction
+# Predict
 if st.button("🎯 Predict Total Streams"):
     prediction = model.predict(input_data)[0]
     st.success(f"📊 Predicted Total Streams: **{prediction:,.2f} Million**")
