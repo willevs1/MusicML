@@ -1,6 +1,6 @@
-kagglehub
+streamlit
 pandas
+scikit-learn
+matplotlib
+kagglehub
 os
-sklearn
-matplotlib.pyplot
-
