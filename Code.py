@@ -21,7 +21,7 @@ from sklearn.metrics import r2_score
 
 # Encode categorical variables
 df_encoded = df.copy()
-label_cols = ["Country", "Artist", "Album", "Platform Type"]
+label_cols = ["Country", "Artist", "Platform Type"]
 for col in label_cols:
     df_encoded[col] = LabelEncoder().fit_transform(df[col])
 
