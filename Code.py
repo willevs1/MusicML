@@ -1,8 +1,3 @@
-import kagglehub
-import pandas as pd
-import os
-import sklearn
-import matplotlib.pyplot as plt
 
 # Download latest version
 dataset_path = kagglehub.dataset_download("atharvasoundankar/spotify-global-streaming-data-2024")
