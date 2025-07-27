@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import sklearn
+import scikit-learn
 
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
