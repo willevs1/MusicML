@@ -1,4 +1,3 @@
-
 # Download latest version
 dataset_path = kagglehub.dataset_download("atharvasoundankar/spotify-global-streaming-data-2024")
 print("Path to dataset files:", dataset_path)
