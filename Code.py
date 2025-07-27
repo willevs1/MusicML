@@ -1,10 +1,7 @@
 # Download latest version
 import pandas as pd
 
-csv_path = "/Users/willevans/Desktop/Spotify_2024_Global_Streaming_Data.csv"
-df = pd.read_csv(csv_path)
-print(df.head())
-
+df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
