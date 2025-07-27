@@ -9,7 +9,15 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
-print(df.head())
+# Group by artist and sum total streams
+artist_streams = df.groupby("Artist")["Total Streams (Millions)"].sum().reset_index()
+
+# Sort the result
+artist_streams = artist_streams.sort_values(by="Total Streams (Millions)", ascending=False)
+
+# Show the top entries in Streamlit
+st.title("Top Artists by Total Streams")
+st.dataframe(artist_streams.head(10))
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
