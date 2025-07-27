@@ -13,13 +13,14 @@ df = pd.read_csv(
     "https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv"
 )
 
-st.subheader("🎧 Dataset Preview")
-st.dataframe(df.head(10))
-
 # Columns to drop if they exist (avoid KeyError)
 cols_to_drop = ['Album', 'Genre', 'Total Hours Streamed (Millions)', 'Skip Rate (%)']
 existing_cols_to_drop = [col for col in cols_to_drop if col in df.columns]
 df = df.drop(columns=existing_cols_to_drop)
+
+
+st.subheader("🎧 Dataset Preview")
+st.dataframe(df.head(10))
 
 # Encode categorical columns and store LabelEncoders
 label_cols = ["Country", "Artist", "Platform Type"]
