@@ -9,6 +9,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 st.title("🎵 Music ML Model & Stream Predictor")
 
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
+df = df.drop("Genre", axis =1)
 
 st.subheader("🎧 Preview of the Dataset")
 st.dataframe(df.head(10))
