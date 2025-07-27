@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
 # Show the top entries in Streamlit
-df = df.drop('Genre')
+df = df.drop('Genre',axis = 1)
 st.dataframe(df.head(10))
 
 from sklearn.preprocessing import LabelEncoder
