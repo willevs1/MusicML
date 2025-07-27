@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -9,7 +10,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 st.title("🎵 Music ML Model & Stream Predictor")
 
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
-
 
 st.subheader("🎧 Preview of the Dataset")
 st.dataframe(df.head(10))
