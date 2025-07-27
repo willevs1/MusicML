@@ -13,15 +13,15 @@ st.title("🎵 Music ML Model & Stream Predictor")
 # Load data
 df = pd.read_csv("https://raw.githubusercontent.com/willevs1/MusicML/main/Spotify_2024_Global_Streaming_Data.csv")
 
+# Drop Genre and Album (not used in model)
+df = df.drop(['Genre', 'Album'], axis=1)
+
 # Show top 10 records
 st.subheader("🎧 Preview of the Dataset")
 st.dataframe(df.head(10))
 
-# Drop Genre for now
-df = df.drop('Genre' , axis=1)
-
 # Encode categorical columns and save encoders
-label_cols = ["Country", "Artist", "Genre" ,"Platform Type"]
+label_cols = ["Country", "Artist", "Platform Type"]
 le = {}
 df_encoded = df.copy()
 for col in label_cols:
@@ -32,17 +32,16 @@ for col in label_cols:
 X = df_encoded.drop(columns=["Total Streams (Millions)"])
 y = df_encoded["Total Streams (Millions)"]
 
-# Split and train
+# Train/test split and model training
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-# Metrics
+# Evaluation
 st.subheader("📈 Model Evaluation")
 st.write("MSE:", mean_squared_error(y_test, y_pred))
-r2 = r2_score(y_test, y_pred)
-st.write("R-Squared:", r2)
+st.write("R-Squared:", r2_score(y_test, y_pred))
 
 # Plot actual vs predicted
 fig, ax = plt.subplots(figsize=(6, 6))
@@ -62,7 +61,6 @@ st.subheader("🎛 Predict Total Streams")
 # User inputs
 country = st.selectbox("Country", df["Country"].unique())
 artist = st.selectbox("Artist", df["Artist"].unique())
-album = st.selectbox("Album", df["Album"].unique())
 platform = st.selectbox("Platform Type", df["Platform Type"].unique())
 release_year = st.number_input("Release Year", min_value=2000, max_value=2025, value=2023)
 monthly_listeners = st.number_input("Monthly Listeners (Millions)", value=10.0)
@@ -72,18 +70,17 @@ avg_stream_duration = st.number_input("Avg Stream Duration (Min)", value=3.5)
 input_data = pd.DataFrame({
     "Country": [country],
     "Artist": [artist],
-    "Album": [album],
     "Platform Type": [platform],
     "Release Year": [release_year],
     "Monthly Listeners (Millions)": [monthly_listeners],
     "Avg Stream Duration (Min)": [avg_stream_duration],
 })
 
-# Encode with the same encoders
+# Encode using saved encoders
 for col in label_cols:
     input_data[col] = le[col].transform(input_data[col])
 
-# Predict
+# Prediction
 if st.button("🎯 Predict Total Streams"):
     prediction = model.predict(input_data)[0]
     st.success(f"📊 Predicted Total Streams: **{prediction:,.2f} Million**")
