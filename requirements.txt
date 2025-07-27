@@ -1,6 +1,6 @@
 kagglehub
-pandas as pd
+pandas
 os
 sklearn
-matplotlib.pyplot as plt
+matplotlib.pyplot
 
