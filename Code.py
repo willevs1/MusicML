@@ -35,8 +35,8 @@ model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
-print("MSE:", mean_squared_error(y_test, y_pred))
+st.write("MSE:", mean_squared_error(y_test, y_pred))
 
 r2 = r2_score(y_test, y_pred) 
-print("R-Squared:", r2)
+st.write("R-Squared:", r2)
 
