@@ -89,5 +89,5 @@ for col in label_cols:
 
 # Predict
 if st.button("🎯 Predict Total Streams"):
-    prediction = model.predict(input_data)[0]
+    prediction = model.predict(input_data[X.columns])[0]
     st.success(f"📊 Predicted Total Streams: **{prediction:,.2f} Million**")
