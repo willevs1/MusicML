@@ -1,8 +1,10 @@
 # Download latest version
-dataset_path = kagglehub.dataset_download("atharvasoundankar/spotify-global-streaming-data-2024")
-print("Path to dataset files:", dataset_path)
-df = pd.read_csv(os.path.join(dataset_path, os.listdir(dataset_path)[0]))
+import pandas as pd
+
+csv_path = "/Users/willevans/Desktop/Spotify_2024_Global_Streaming_Data.csv"
+df = pd.read_csv(csv_path)
 print(df.head())
+
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
