@@ -21,7 +21,7 @@ st.dataframe(df.head(10))
 df = df.drop('Genre' , axis=1)
 
 # Encode categorical columns and save encoders
-label_cols = ["Country", "Artist", "Platform Type"]
+label_cols = ["Country", "Artist", "Genre" ,"Platform Type"]
 le = {}
 df_encoded = df.copy()
 for col in label_cols:
