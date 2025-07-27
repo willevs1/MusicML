@@ -40,3 +40,19 @@ st.write("MSE:", mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred) 
 st.write("R-Squared:", r2)
 
+
+import streamlit as st
+import matplotlib.pyplot as plt
+
+# Plot setup
+plt.figure(figsize=(6,6))
+plt.scatter(y_test, y_pred, alpha=0.6)
+plt.xlabel("Actual Streams (Millions)")
+plt.ylabel("Predicted Streams (Millions)")
+plt.title("Actual vs Predicted Streams")
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')  # Diagonal line
+plt.grid()
+plt.tight_layout()
+
+# Display in Streamlit
+st.pyplot(plt)
