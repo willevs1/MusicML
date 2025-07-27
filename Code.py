@@ -34,12 +34,4 @@ print("MSE:", mean_squared_error(y_test, y_pred))
 r2 = r2_score(y_test, y_pred) 
 print("R-Squared:", r2)
 
-plt.figure(figsize=(6,6))
-plt.scatter(y_test, y_pred, alpha=0.6)
-plt.xlabel("Actual Streams (Millions)")
-plt.ylabel("Predicted Streams (Millions)")
-plt.title("Actual vs Predicted Streams")
-plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
-plt.grid()
-plt.tight_layout()
-plt.show()
+
