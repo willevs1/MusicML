@@ -56,3 +56,39 @@ plt.tight_layout()
 
 # Display in Streamlit
 st.pyplot(plt)
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# Title
+st.title("🎧 Music Stream Predictor")
+
+# User input fields
+country = st.selectbox("Country", df["Country"].unique())
+artist = st.selectbox("Artist", df["Artist"].unique())
+album = st.selectbox("Album", df["Album"].unique())
+platform = st.selectbox("Platform Type", df["Platform Type"].unique())
+release_year = st.number_input("Release Year", min_value=2000, max_value=2025, value=2023)
+monthly_listeners = st.number_input("Monthly Listeners (Millions)", value=10.0)
+avg_stream_duration = st.number_input("Avg Stream Duration (Min)", value=3.5)
+
+# Create a DataFrame for prediction
+input_data = pd.DataFrame({
+    "Country": [country],
+    "Artist": [artist],
+    "Album": [album],
+    "Platform Type": [platform],
+    "Release Year": [release_year],
+    "Monthly Listeners (Millions)": [monthly_listeners],
+    "Avg Stream Duration (Min)": [avg_stream_duration],
+})
+
+# Encode labels
+for col in label_cols:
+    input_data[col] = le[col].transform(input_data[col])
+
+# Make prediction
+if st.button("Predict Total Streams (Millions)"):
+    prediction = model.predict(input_data)[0]
+    st.success(f"🎯 Predicted Total Streams: **{prediction:,.2f} Million**")
